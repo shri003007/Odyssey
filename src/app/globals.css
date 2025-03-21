@@ -1,0 +1,356 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+ 
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+ 
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+ 
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+ 
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --ring: 240 5.9% 10%;
+ 
+    --radius: 0.5rem;
+ 
+    /* Update dark mode colors */
+    .dark {
+      --background: 240 10% 3.9%;
+      --foreground: 0 0% 98%;
+      
+      /* Update border colors for dark mode */
+      --border: 240 3.7% 15.9%;
+      --input: 240 3.7% 15.9%;
+      
+      --card: 240 10% 3.9%;
+      --card-foreground: 0 0% 98%;
+      
+      --popover: 240 10% 3.9%;
+      --popover-foreground: 0 0% 98%;
+      
+      --primary: 0 0% 98%;
+      --primary-foreground: 240 5.9% 10%;
+      
+      --secondary: 240 3.7% 15.9%;
+      --secondary-foreground: 0 0% 98%;
+      
+      --muted: 240 3.7% 15.9%;
+      --muted-foreground: 240 5% 64.9%;
+      
+      --accent: 240 3.7% 15.9%;
+      --accent-foreground: 0 0% 98%;
+      
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 0 0% 98%;
+    }
+  }
+ 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+ 
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+ 
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+ 
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+ 
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --ring: 240 4.9% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .nav-item {
+    @apply p-3 rounded-lg hover:bg-accent transition-colors duration-200;
+  }
+}
+
+.tiptap-editor {
+  /* Reset some basic elements */
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre {
+    all: revert;
+  }
+
+  /* Editor content styles */
+  > * {
+    margin-bottom: 1rem !important;
+  }
+
+  h1 {
+    font-size: 2.5rem !important;
+    font-weight: bold !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  h2 {
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+  }
+
+  h3 {
+    font-size: 1.75rem !important;
+    font-weight: 600 !important;
+  }
+
+  h4 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+  }
+
+  h5 {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+  }
+
+  h6 {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+  }
+
+  ul {
+    list-style-type: disc !important;
+    padding-left: 1.5rem !important;
+  }
+
+  ol {
+    list-style-type: decimal !important;
+    padding-left: 1.5rem !important;
+  }
+
+  blockquote {
+    border-left: 4px solid #e5e7eb !important;
+    padding-left: 1rem !important;
+    font-style: italic !important;
+  }
+
+  pre {
+    background-color: #f3f4f6 !important;
+    padding: 0.5rem !important;
+    border-radius: 0.25rem !important;
+  }
+
+  p {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Ensure inline styles are not overridden */
+  strong {
+    font-weight: bold !important;
+  }
+
+  em {
+    font-style: italic !important;
+  }
+
+  u {
+    text-decoration: underline !important;
+  }
+
+  s {
+    text-decoration: line-through !important;
+  }
+
+  code {
+    background-color: #f3f4f6 !important;
+    padding: 0.2rem 0.4rem !important;
+    border-radius: 0.25rem !important;
+    font-family: monospace !important;
+  }
+
+  a {
+    color: #3b82f6 !important;
+    text-decoration: underline !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* Outline editor styles */
+.outline-editor {
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre {
+    all: revert;
+  }
+  > * + * {
+    margin-top: 1em;
+  }
+  h1 { @apply text-2xl font-bold; }
+  h2 { @apply text-xl font-semibold; }
+  h3 { @apply text-lg font-medium; }
+  h4 { @apply text-base font-medium; }
+  h5 { @apply text-sm font-medium; }
+  h6 { @apply text-xs font-medium; }
+  p { @apply text-base; }
+  ul, ol { @apply list-disc pl-5; }
+  blockquote { @apply border-l-4 border-gray-300 pl-4 italic; }
+  pre { @apply bg-gray-100 p-2 rounded; }
+  code { @apply bg-gray-100 p-1 rounded; }
+}
+
+/* Resizer styles */
+[data-panel-group-direction="horizontal"] > [data-panel-resize-handle] {
+  width: 4px;
+  cursor: col-resize;
+}
+
+[data-panel-group-direction="horizontal"] > [data-panel-resize-handle]:hover,
+[data-panel-group-direction="horizontal"] > [data-panel-resize-handle]:active {
+  background-color: hsl(var(--primary) / 0.2);
+}
+
+/* Add specific dark mode overrides for components */
+.dark .tiptap-editor,
+.dark .outline-editor-content {
+  background-color: hsl(var(--background));
+  border-color: hsl(var(--border));
+}
+
+.dark [data-panel-resize-handle] {
+  background-color: hsl(var(--border));
+}
+
+.dark [data-panel-resize-handle]:hover {
+  background-color: hsl(var(--primary) / 0.2);
+}
+
+/* Ensure scrollbars match dark theme */
+.dark ::-webkit-scrollbar {
+  background-color: hsl(var(--background));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted));
+  border: 3px solid hsl(var(--background));
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: hsl(var(--background));
+}
+
+/* Remove borders in dark mode for specific components */
+.dark .outline-editor-content,
+.dark .tiptap-editor,
+.dark [data-panel],
+.dark .border,
+.dark .border-border,
+.dark [class*="border-"],
+.dark select,
+.dark textarea,
+.dark input {
+  border-color: transparent !important;
+}
+
+/* Add subtle separation using background colors instead of borders */
+.dark .outline-editor-content h2,
+.dark .outline-editor-content h3 {
+  border-left-color: hsl(var(--primary) / 0.2);
+}
+
+/* Adjust panel resize handle in dark mode */
+.dark [data-panel-resize-handle] {
+  background-color: hsl(var(--muted) / 0.3);
+  border: none;
+}
+
+.dark [data-panel-resize-handle]:hover {
+  background-color: hsl(var(--primary) / 0.2);
+}
+
+/* Add subtle separation between components using background */
+.dark .outline-section,
+.dark .content-section {
+  background-color: hsl(var(--background) / 0.8);
+}
+
+/* If you need visual separation, use subtle backgrounds instead of borders */
+.dark .outline-editor-content:hover,
+.dark .tiptap-editor:hover {
+  background-color: hsl(var(--muted) / 0.1);
+}
+
+/* Custom animations for navigation */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .animate-slide-in-from-left {
+    animation: slideInFromLeft 0.25s ease-out forwards;
+  }
+  
+  .animate-slide-out-to-left {
+    animation: slideOutToLeft 0.2s ease-in forwards;
+  }
+}
+

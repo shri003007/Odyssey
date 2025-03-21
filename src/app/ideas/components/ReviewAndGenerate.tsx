@@ -15,7 +15,7 @@ const ReviewAndGenerate = () => {
 
         {selectedProject && (
           <Box css={{ marginTop: '$2', padding: '$4', backgroundColor: '$blue50', borderRadius: '$md' }}>
-            <Text size="sm">Selected Project: <strong>{selectedProject.name}</strong></Text>
+            <Text size="sm">Selected Project: <strong>{selectedProject.label}</strong></Text>
           </Box>
         )}
 

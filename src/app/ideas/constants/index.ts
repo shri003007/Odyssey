@@ -145,11 +145,11 @@ export const contentPieces: BlogPostContent[] = [
         "Will AI replace software engineers"
       ],
       "secondary": [
-        "AI in software development",
-        "AI automation in coding",
-        "Future of software engineering with AI"
+        "AI coding tools",
+        "Future of software engineering"
       ]
     },
+    "publish_at": "",
     "outline": [
       {
         "h1": "The AI Revolution in Software Engineering: Current Impacts and Future Horizons",
@@ -218,9 +218,10 @@ export const contentPieces: BlogPostContent[] = [
       "secondary": [
         "Upskilling for AI in tech",
         "AI engineering skills",
-        "Generative AI in software development"
+        "Software engineering evolution"
       ]
     },
+    "publish_at": "",
     "outline": [
       {
         "h1": "The Future of Software Engineering: Navigating the AI-Native Landscape",
@@ -297,9 +298,10 @@ export const contentPieces: BlogPostContent[] = [
       "secondary": [
         "Learning AI for software engineering",
         "AI tools for developers",
-        "How to work with AI in coding"
+        "Career growth with AI"
       ]
     },
+    "publish_at": "",
     "outline": [
       {
         "h1": "Mastering AI in Software Engineering: A Practical Guide to Adaptation and Growth",

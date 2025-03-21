@@ -26,7 +26,6 @@ import {
 } from "@/lib/api";
 import { EditInputDialog } from "./edit-input-dialog";
 import { toast } from "sonner";
-import { calculateOptimalPosition } from "@/lib/menu-position";
 import { Button as TwigsButton } from "@sparrowengg/twigs-react";
 
 const MENU_OPTIONS = {

@@ -28,8 +28,7 @@ interface Project {
 export default function ProjectsPage() {
   const router = useRouter();
   const { user, userId, isLoading: authLoading } = useAuth();
-  const [activeTab, setActiveTab] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery] = useState("");
   const [mounted, setMounted] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -177,33 +176,33 @@ export default function ProjectsPage() {
   });
 
   // Filter projects based on active tab
-  const filteredProjects = projects.filter((project) => {
-    const matchesTab =
-      activeTab === "all" ||
-      (activeTab === "active" && project.status === "active") ||
-      (activeTab === "completed" && project.status === "completed") ||
-      (activeTab === "planning" && project.status === "planning") ||
-      project.category === activeTab;
+  // const filteredProjects = projects.filter((project) => {
+  //   const matchesTab =
+  //     activeTab === "all" ||
+  //     (activeTab === "active" && project.status === "active") ||
+  //     (activeTab === "completed" && project.status === "completed") ||
+  //     (activeTab === "planning" && project.status === "planning") ||
+  //     project.category === activeTab;
 
-    return matchesTab;
-  });
+  //   return matchesTab;
+  // });
 
-  const getStatusStyles = (status: string) => {
-    switch (status) {
-      case "active":
-        return "bg-emerald-500/10 text-emerald-600";
-      case "completed":
-        return "bg-blue-500/10 text-blue-600";
-      case "planning":
-        return "bg-amber-500/10 text-amber-600";
-      default:
-        return "bg-gray-200 text-gray-600";
-    }
-  };
+  // const getStatusStyles = (status: string) => {
+  //   switch (status) {
+  //     case "active":
+  //       return "bg-emerald-500/10 text-emerald-600";
+  //     case "completed":
+  //       return "bg-blue-500/10 text-blue-600";
+  //     case "planning":
+  //       return "bg-amber-500/10 text-amber-600";
+  //     default:
+  //       return "bg-gray-200 text-gray-600";
+  //   }
+  // };
 
-  const handleProjectClick = (projectId: string | number) => {
-    router.push(`/projects/${projectId}`);
-  };
+  // const handleProjectClick = (projectId: string | number) => {
+  //   router.push(`/projects/${projectId}`);
+  // };
 
   // If not authenticated, redirect to login
   useEffect(() => {

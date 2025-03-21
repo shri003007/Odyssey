@@ -150,7 +150,7 @@ function LibraryPageSkeleton() {
 
 export default function LibraryPage() {
   const router = useRouter();
-  const { user, userId, isLoading: authLoading, profileId } = useAuth();
+  const { user, userId, isLoading: authLoading } = useAuth();
   const [, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -164,7 +164,6 @@ export default function LibraryPage() {
     useState<ScheduleDetails | null>(null);
   const [selectedItem, setSelectedItem] = useState<LibraryItem | null>(null);
   const { toast } = useToast();
-
   const { profiles } = useAuth();
 
   // const TAB_CATEGORIES = [
@@ -198,7 +197,7 @@ export default function LibraryPage() {
 
       try {
         // Fetch content
-        const data = await getUserContent(userId);
+        const data = await getUserContent(userId || "");
         const processedData = data.map(processContentItem);
         setLibraryItems(processedData);
 
@@ -437,9 +436,13 @@ export default function LibraryPage() {
   };
 
   const handleScheduleSubmit = async () => {
+    // Get first available profile ID or default to 1
+    // const profileId = profiles && profiles.length > 0 ? profiles[0].id : 1;
+
     const payload = {
-      content_id: scheduleDetails?.contentId,
-      user_id: userId,
+      content_id: scheduleDetails?.contentId || 0,
+      user_id: userId ? parseInt(userId) : 0,
+      // profile_id: profileId,
       publish_at: `${scheduleDetails?.scheduledDate}T${scheduleDetails?.scheduledTime}:00Z`,
     };
 
@@ -453,7 +456,7 @@ export default function LibraryPage() {
         description: "The scheduled event has been successfully saved.",
       });
 
-      const data = await getUserContent(userId);
+      const data = await getUserContent(userId || "");
       const processedData = data.map(processContentItem);
       setLibraryItems(processedData);
     } else {

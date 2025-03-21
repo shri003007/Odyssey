@@ -8,7 +8,6 @@ import { Box, Flex, Heading, IconButton, Text } from "@sparrowengg/twigs-react";
 import { Button as TwigsButton } from "@sparrowengg/twigs-react";
 import {
   ArrowLeft,
-  Edit,
   Trash,
   Calendar,
   File,
@@ -69,7 +68,7 @@ interface Content {
   };
 }
 
-export default function LibraryDetailPage({ params }) {
+export default function LibraryDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { user, userId, isLoading: authLoading } = useAuth();
   const contentId = params.id;

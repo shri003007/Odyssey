@@ -36,7 +36,7 @@ interface ScheduledEventsResponse {
 // Interface for schedule event data
 interface ScheduleEventData {
   content_id: number;
-  profile_id: number;
+  // profile_id: number;
   publish_at: string;
   user_id: number;
   [key: string]: unknown; // For any additional properties

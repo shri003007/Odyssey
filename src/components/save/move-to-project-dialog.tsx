@@ -6,7 +6,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -19,7 +18,6 @@ import {
 import { getUserProjects, createProject } from "@/app/lib/projects";
 import { updateContent } from "@/app/lib/content";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
 import { Button as TwigsButton } from "@sparrowengg/twigs-react";
 
 interface Project {
@@ -118,7 +116,7 @@ export function MoveToProjectDialog({
               <Input
                 id="newProjectName"
                 value={newProjectName}
-                onChange={(e) => setNewProjectName(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewProjectName(e.target.value)}
                 placeholder="Enter new project name"
               />
             </div>

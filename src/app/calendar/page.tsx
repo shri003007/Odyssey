@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -55,6 +56,87 @@ import {
 } from "../lib/schedule";
 import { useAuth } from "@/context/auth-provider";
 import { useToast } from "@/hooks/use-toast";
+
+// API Response interface
+interface ScheduledEventResponse {
+  id: number;
+  content_id: number;
+  user_id: number;
+  profile_id: number | null;
+  publish_at: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: null | string;
+  status: string;
+  ran_at: null | string;
+  scheduler_id?: null | number;
+  content: {
+    id: number;
+    name: string;
+    content: string;
+    user_id: number;
+    created_at: string;
+    project_id: number;
+    updated_at: string;
+    content_type_id: number;
+    content_types: {
+      id: number;
+      icon: null | string;
+      value: string;
+      user_id: null | number;
+      type_name: string;
+      is_default: boolean;
+      profile_id: null | number;
+      description: null | string;
+      is_postable: boolean;
+      post_medium: null | string;
+    };
+  };
+  profiles: null | {
+    id: number;
+    user_id: number;
+    created_at: string;
+    is_default: boolean;
+    updated_at: string;
+    profile_name: string;
+    profile_context: string;
+  };
+}
+
+// Transform function to convert API response to Content type
+function transformDataToContentFormat(data: ScheduledEventResponse[]): Content[] {
+  return data.map(item => ({
+    id: String(item.id),
+    content_id: String(item.content_id),
+    scheduler_id: item.id, // Using id as scheduler_id since it's required
+    updated_at: new Date(item.updated_at),
+    publish_at: new Date(item.publish_at),
+    content: {
+      id: String(item.content.id),
+      name: item.content.name,
+      content: item.content.content,
+      created_at: new Date(item.content.created_at),
+      priority: "Medium" as const,
+      completed: false,
+      content_types: {
+        value: item.content.content_types.value || "",
+        type_name: item.content.content_types.type_name || "",
+        profile_id: item.profile_id || 0,
+        is_postable: item.content.content_types.is_postable || false
+      }
+    },
+    profiles: item.profiles ? {
+      user_id: String(item.profiles.user_id),
+      profile_id: String(item.profiles.id),
+      profile_name: item.profiles.profile_name
+    } : {
+      user_id: String(item.user_id),
+      profile_id: item.profile_id ? String(item.profile_id) : "0",
+      profile_name: ""
+    }
+  }));
+}
+
 export default function ContentCalendarPage() {
   const { toast } = useToast();
   const { contents, setContents } = useContentContext();
@@ -176,8 +258,8 @@ export default function ContentCalendarPage() {
   const fetchScheduledEvents = async () => {
     try {
       const res = await getAllScheduledEvents(userId);
-
-      setContents(res?.data);
+      const transformedData = transformDataToContentFormat(res.data as unknown as ScheduledEventResponse[]);
+      setContents(transformedData);
     } catch (error) {
       console.error("Error fetching scheduled events:", error);
     }
@@ -212,33 +294,7 @@ export default function ContentCalendarPage() {
         // Refetch the scheduled events
         const res = await getAllScheduledEvents(userId);
         // Transform the data
-        const transformedData = res.data.map(item => ({
-          id: String(item.id),
-          content_id: String(item.content_id),
-          scheduler_id: item.id,
-          updated_at: new Date(item.updated_at),
-          publish_at: new Date(item.publish_at),
-          content: {
-            id: String(item.content.id),
-            name: item.content.name,
-            content: item.content.content,
-            created_at: new Date(item.content.created_at),
-            priority: "Medium" as const,
-            completed: false,
-            content_types: {
-              value: "",
-              type_name: "",
-              profile_id: 0,
-              is_postable: true
-            }
-          },
-          profiles: {
-            user_id: String(item.profiles.user_id),
-            profile_id: String(item.profiles.id),
-            profile_name: item.profiles.profile_name,
-            content_types: []
-          }
-        }));
+        const transformedData = transformDataToContentFormat(res.data as unknown as ScheduledEventResponse[]);
         setContents(transformedData);
       } else {
         toast({
@@ -317,33 +373,7 @@ export default function ContentCalendarPage() {
       // Refetch the scheduled events
       const res = await getAllScheduledEvents(userId);
       // Transform the data
-      const transformedData = res.data.map(item => ({
-        id: String(item.id),
-        content_id: String(item.content_id),
-        scheduler_id: item.id,
-        updated_at: new Date(item.updated_at),
-        publish_at: new Date(item.publish_at),
-        content: {
-          id: String(item.content.id),
-          name: item.content.name,
-          content: item.content.content,
-          created_at: new Date(item.content.created_at),
-          priority: "Medium" as const,
-          completed: false,
-          content_types: {
-            value: "",
-            type_name: "",
-            profile_id: 0,
-            is_postable: true
-          }
-        },
-        profiles: {
-          user_id: String(item.profiles.user_id),
-          profile_id: String(item.profiles.id),
-          profile_name: item.profiles.profile_name,
-          content_types: []
-        }
-      }));
+      const transformedData = transformDataToContentFormat(res.data as unknown as ScheduledEventResponse[]);
       setContents(transformedData);
       
       setIsDetailDialogOpen(false);
@@ -800,11 +830,12 @@ export default function ContentCalendarPage() {
                     value={editedContent?.publish_at}
                     min={format(new Date(), "yyyy-MM-dd'T'HH:mm")}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setEditedContent({
+                      setEditedContent(editedContent ? {
                         ...editedContent,
                         publish_at: e.target.value,
-                      })
+                      } : null)
                     }
+                    required
                   />
                 </div>
 
@@ -866,7 +897,7 @@ export default function ContentCalendarPage() {
               <Button
                 size="md"
                 variant="outline"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   handleSaveEditedContent();
                   setIsDetailDialogOpen(false);
@@ -876,6 +907,16 @@ export default function ContentCalendarPage() {
                 Save
               </Button>
             )}
+            <Button
+              size="md"
+              variant="secondary"
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+                setIsEditMode(false);
+              }}
+            >
+              Cancel
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -955,7 +996,7 @@ export default function ContentCalendarPage() {
                           <Button
                             variant="outline"
                             size="md"
-                            onClick={(e) => {
+                            onClick={(e: React.MouseEvent) => {
                               e.stopPropagation();
                               handleEditSchedule(event);
                               setIsDayEventsDialogOpen(false);

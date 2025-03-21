@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
-  Search,
   MoreVertical,
   FileText,
   Calendar,
@@ -39,8 +38,6 @@ import { toast } from "sonner";
 import { MoveToProjectDialog } from "./move-to-project-dialog";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -215,7 +212,7 @@ export function RecentContentPanel({
               }}
               placeholder="Search content..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
             />
           </div>
           <Select value={contentType} onValueChange={setContentType}>

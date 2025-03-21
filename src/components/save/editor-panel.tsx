@@ -142,7 +142,7 @@ export function EditorPanel({ contentId, onClose, userId }: EditorPanelProps) {
       <div className="flex items-center justify-between p-4 border-b gap-3">
         <Input
           value={contentName}
-          onChange={(e) => setContentName(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContentName(e.target.value)}
         />
         <div className="flex items-center gap-2">
           <TwigsButton

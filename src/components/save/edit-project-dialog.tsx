@@ -8,11 +8,9 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { updateProject } from "@/app/lib/projects";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
 import {
   Button as TwigsButton,
   Textarea,
@@ -85,7 +83,7 @@ export function EditProjectDialog({
               <Input
                 id="name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                 placeholder="Enter project name"
               />
             </div>
@@ -95,7 +93,7 @@ export function EditProjectDialog({
                 resize="none"
                 id="description"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
                 placeholder="Enter project description"
                 rows={3}
               />

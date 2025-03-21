@@ -29,6 +29,7 @@ import {
 import { format } from "date-fns";
 import { Text, Input, Button as TwigsButton } from "@sparrowengg/twigs-react";
 import { saveEventForSchedule, updateScheduledEvent } from "@/app/lib/schedule";
+// import { useAuth } from "@/context/auth-provider";
 
 interface Content {
   id: number;
@@ -38,7 +39,7 @@ interface Content {
   created_at: string;
   updated_at: string;
   word_count?: number;
-  schedules?: { publish_at: string }[];
+  schedules?: { id: number; publish_at: string }[];
 }
 
 interface ScheduleDetails {
@@ -72,6 +73,7 @@ export function ContentPanel({
     useState<ScheduleDetails | null>(null);
 
   const { toast } = useToast();
+  // const { profiles } = useAuth();
 
   useEffect(() => {
     const fetchContentTypes = async () => {
@@ -176,9 +178,13 @@ export function ContentPanel({
     if (!scheduledContent) return;
 
     try {
+      // Get first available profile ID or default to 1
+      // const profileId = profiles && profiles.length > 0 ? profiles[0].id : 1;
+      
       const payload = {
         content_id: scheduledContent.contentId,
-        user_id: userId,
+        user_id: parseInt(userId) || 0,
+        // profile_id: profileId,
         publish_at: `${scheduledContent.scheduledDate}T${scheduledContent.scheduledTime}:00Z`,
       };
 
